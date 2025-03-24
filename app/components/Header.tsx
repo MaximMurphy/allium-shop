@@ -21,7 +21,7 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
   const {open} = useAside();
 
   return (
-    <header className="bg-allium-green text-allium-cream py-2">
+    <header className="bg-allium-green text-allium-cream py-2 font-mulish">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-8">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8 items-center">
@@ -63,7 +63,7 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
           </NavLink>
           <CartToggle cart={cart} />
           <button
-            className="md:hidden text-allium-cream hover:underline transition duration-300"
+            className="md:hidden text-allium-cream hover:underline hover:cursor-pointer transition duration-300"
             onClick={() => open('mobile')}
           >
             ☰
@@ -77,6 +77,13 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
 export function HeaderMenu() {
   return (
     <nav className="flex flex-col gap-4">
+      <NavLink
+        prefetch="intent"
+        to="/"
+        className="text-allium-green hover:underline transition duration-300"
+      >
+        Home
+      </NavLink>
       <NavLink
         prefetch="intent"
         to="/"
@@ -108,7 +115,7 @@ function CartBadge({count}: {count: number | null}) {
 
   return (
     <button
-      className="text-allium-cream hover:underline transition duration-300"
+      className="text-allium-cream hover:underline hover:cursor-pointer transition duration-300"
       onClick={() => {
         open('cart');
         publish('cart_viewed', {

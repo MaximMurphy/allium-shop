@@ -2,8 +2,14 @@
  * Configure Tailwind v4 in this file using CSS variables and directives:
  * https://tailwindcss.com/docs/v4-beta#css-first-configuration
  */
-
 @import 'tailwindcss';
+
+@layer base {
+  html,
+  body {
+    font-family: 'Mulish', ui-sans-serif, system-ui, sans-serif !important;
+  }
+}
 
 @theme {
   --color-allium-cream: #fefbef;

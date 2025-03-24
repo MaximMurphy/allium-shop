@@ -34,23 +34,31 @@ export function PageLayout({
 }: PageLayoutProps) {
   return (
     <Aside.Provider>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <MobileMenuAside />
-      {header && (
+      <div className="font-mulish flex min-h-screen flex-col">
         <Header
           header={header}
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
         />
-      )}
-      <main>{children}</main>
-      <Footer
-        footer={footer}
-        header={header}
-        publicStoreDomain={publicStoreDomain}
-      />
+        <main className="flex-1" id="mainContent" role="main">
+          {children}
+        </main>
+        <Suspense>
+          <Await resolve={footer}>
+            {(footerData) => (
+              <Footer
+                footer={footer}
+                header={header}
+                publicStoreDomain={publicStoreDomain}
+              />
+            )}
+          </Await>
+        </Suspense>
+        <CartAside cart={cart} />
+        <SearchAside />
+        <MobileMenuAside />
+      </div>
     </Aside.Provider>
   );
 }
