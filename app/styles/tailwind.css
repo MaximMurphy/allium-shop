@@ -4,3 +4,13 @@
  */
 
 @import 'tailwindcss';
+
+@theme {
+  --color-allium-cream: #fefbef;
+  --color-allium-green: #365314;
+  --color-allium-light-green: #3f6212;
+  --color-allium-dark-green: #1a2e05;
+  --color-allium-brown: #48321b;
+  --color-allium-light-brown: #543c23;
+  --color-allium-dark-brown: #2d1f11;
+}
