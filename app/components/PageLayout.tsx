@@ -9,6 +9,7 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
+import {Container} from '~/components/Container';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
@@ -42,7 +43,7 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
         <main className="flex-1" id="mainContent" role="main">
-          {children}
+          <Container>{children}</Container>
         </main>
         <Suspense>
           <Await resolve={footer}>

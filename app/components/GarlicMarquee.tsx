@@ -1,6 +1,21 @@
 import {useEffect, useState} from 'react';
 
-const items = ['🧄', '🧅', '🧄', '🧅', '🧄', '🧅', '🧄', '🧅', '🧄', '🧅'];
+const items = [
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
+];
 
 export default function GarlicMarquee() {
   const [MarqueeComponent, setMarqueeComponent] = useState<any>(null);
@@ -17,7 +32,8 @@ export default function GarlicMarquee() {
     return (
       <div className="whitespace-nowrap overflow-hidden">
         {items.map((item, index) => (
-          <span key={index} className="mx-4 text-2xl">
+          // eslint-disable-next-line react/no-array-index-key
+          <span key={index} className="mx-4 text-4xl">
             {item}
           </span>
         ))}
@@ -31,7 +47,7 @@ export default function GarlicMarquee() {
       gradient={true}
       gradientColor="#fefbef"
       gradientWidth={25}
-      className="whitespace-nowrap"
+      className="whitespace-nowrap overflow-hidden"
     >
       {items.map((item, index) => (
         // eslint-disable-next-line react/no-array-index-key
