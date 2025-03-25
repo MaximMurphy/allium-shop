@@ -1,8 +1,12 @@
-import {useLoaderData, Link} from '@remix-run/react';
+import {useLoaderData, Link, type MetaFunction} from '@remix-run/react';
 import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import type {CollectionFragment} from 'storefrontapi.generated';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+
+export const meta: MetaFunction = () => {
+  return [{title: 'Allium Shop | Collections'}];
+};
 
 export async function loader(args: LoaderFunctionArgs) {
   // Start fetching non-critical data without blocking time to first byte
