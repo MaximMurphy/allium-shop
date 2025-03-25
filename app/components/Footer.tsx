@@ -19,7 +19,7 @@ export function Footer({
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="h-full md:min-h-screen flex flex-col justify-between bg-allium-green text-allium-cream">
+          <footer className="z-20 h-full md:min-h-screen flex flex-col justify-between bg-allium-green text-allium-cream">
             <div className="hidden md:flex">
               <DesktopNav currentYear={currentYear} />
             </div>
@@ -34,10 +34,10 @@ export function Footer({
               />
 
               <div className="flex h-8">
-                <div className="flex-1 bg-allium-brown"></div>
-                <div className="flex-1 bg-allium-dark-green"></div>
-                <div className="flex-1 bg-allium-dark-brown"></div>
-                <div className="flex-1 bg-allium-light-green"></div>
+                <div className="w-1/4 bg-allium-brown"></div>
+                <div className="w-1/4 bg-allium-dark-green"></div>
+                <div className="w-1/4 bg-allium-dark-brown"></div>
+                <div className="w-1/4 bg-allium-light-green"></div>
               </div>
             </section>
           </footer>

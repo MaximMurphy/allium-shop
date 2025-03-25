@@ -4,8 +4,6 @@
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
   --header-height: 64px;
-  --color-dark: #000;
-  --color-light: #fff;
 }
 
 /* Font setup for Mulish variable font */
@@ -32,10 +30,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   font-family: 'Mulish';
-}
-
-img {
-  border-radius: 4px;
+  background-color: var(--color-allium-green);
 }
 
 /*
