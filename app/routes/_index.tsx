@@ -1,182 +1,53 @@
-import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
-import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
-import type {
-  FeaturedCollectionFragment,
-  RecommendedProductsQuery,
-} from 'storefrontapi.generated';
+import {type MetaFunction} from '@remix-run/react';
+import {Link} from '@remix-run/react';
+import helloChef from '../assets/hello-chef.png';
+import GarlicMarquee from '~/components/GarlicMarquee';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Allium Shop | Home'}];
 };
 
-export async function loader(args: LoaderFunctionArgs) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
-
-  return {...deferredData, ...criticalData};
-}
-
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- */
-async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}] = await Promise.all([
-    context.storefront.query(FEATURED_COLLECTION_QUERY),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
-
-  return {
-    featuredCollection: collections.nodes[0],
-  };
-}
-
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- */
-function loadDeferredData({context}: LoaderFunctionArgs) {
-  const recommendedProducts = context.storefront
-    .query(RECOMMENDED_PRODUCTS_QUERY)
-    .catch((error) => {
-      // Log query errors, but don't throw them so the page can still render
-      console.error(error);
-      return null;
-    });
-
-  return {
-    recommendedProducts,
-  };
-}
-
 export default function Homepage() {
-  const data = useLoaderData<typeof loader>();
   return (
-    <div className="home bg-allium-cream">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
-    </div>
-  );
-}
-
-function FeaturedCollection({
-  collection,
-}: {
-  collection: FeaturedCollectionFragment;
-}) {
-  if (!collection) return null;
-  const image = collection?.image;
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  );
-}
-
-function RecommendedProducts({
-  products,
-}: {
-  products: Promise<RecommendedProductsQuery | null>;
-}) {
-  return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {(response) => (
-            <div className="recommended-products-grid">
-              {response
-                ? response.products.nodes.map((product) => (
-                    <Link
-                      key={product.id}
-                      className="recommended-product"
-                      to={`/products/${product.handle}`}
-                    >
-                      <Image
-                        data={product.images.nodes[0]}
-                        aspectRatio="1/1"
-                        sizes="(min-width: 45em) 20vw, 50vw"
-                      />
-                      <h4>{product.title}</h4>
-                      <small>
-                        <Money data={product.priceRange.minVariantPrice} />
-                      </small>
-                    </Link>
-                  ))
-                : null}
+    <div className="w-full min-h-[calc(100vh-4rem)] bg-allium-cream flex items-center px-8 md:px-24 lg:px-36">
+      <div className="w-full flex flex-col md:flex-row items-center justify-between">
+        <div className="w-1/2 space-y-12">
+          <img
+            src={helloChef}
+            alt="Allium Chef"
+            width={648}
+            height={104}
+            className="object-contain"
+          />
+          <p className="text-4xl text-allium-green italic text-justify">
+            At Allium, our clothing celebrates the humble yet mighty garlic and
+            onion. Wear your culinary passion with our unique, chef-inspired
+            designs.
+          </p>
+          <div className="w-full space-y-8">
+            <div className="w-full flex justify-between text-2xl">
+              <Link
+                to="/collections"
+                className="bg-allium-dark-green text-allium-cream px-8 py-4 rounded-lg border-2 border-allium-dark-green hover:bg-allium-cream hover:text-allium-dark-green transition duration-300 text-center"
+              >
+                Shop The Collection
+              </Link>
+              <Link
+                to="/about"
+                className="border-2 border-allium-dark-green text-allium-dark-green px-8 py-4 rounded-lg hover:bg-allium-dark-green hover:text-allium-cream transition duration-300 text-center"
+              >
+                About Us
+              </Link>
             </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
+            <div className="w-full overflow-hidden">
+              <GarlicMarquee />
+            </div>
+          </div>
+        </div>
+        <div className="w-1/2 flex justify-end mt-24">
+          <div className="h-[30rem] w-[30rem] bg-allium-dark-brown rounded-lg"></div>
+        </div>
+      </div>
     </div>
   );
 }
-
-const FEATURED_COLLECTION_QUERY = `#graphql
-  fragment FeaturedCollection on Collection {
-    id
-    title
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-    handle
-  }
-  query FeaturedCollection($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...FeaturedCollection
-      }
-    }
-  }
-` as const;
-
-const RECOMMENDED_PRODUCTS_QUERY = `#graphql
-  fragment RecommendedProduct on Product {
-    id
-    title
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    images(first: 1) {
-      nodes {
-        id
-        url
-        altText
-        width
-        height
-      }
-    }
-  }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...RecommendedProduct
-      }
-    }
-  }
-` as const;

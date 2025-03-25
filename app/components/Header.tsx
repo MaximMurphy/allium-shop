@@ -21,7 +21,7 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
   const {open} = useAside();
 
   return (
-    <header className="sticky top-0 z-10 bg-allium-green text-allium-cream py-2">
+    <header className="sticky top-0 z-10 bg-allium-green text-allium-cream py-2 font-base">
       <div className="flex justify-between items-center px-8 md:px-24 lg:px-36">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8 items-center">
