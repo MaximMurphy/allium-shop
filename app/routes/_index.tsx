@@ -2,6 +2,7 @@ import {type MetaFunction} from '@remix-run/react';
 import {Link} from '@remix-run/react';
 import helloChef from '../assets/hello-chef.png';
 import GarlicMarquee from '~/components/GarlicMarquee';
+import GarlicModelClient from '~/components/GarlicModelClient';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Allium Shop | Home'}];
@@ -46,7 +47,9 @@ export default function Homepage() {
           </div>
         </div>
         <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mt-24">
-          <div className="h-[30rem] w-[30rem] bg-allium-dark-brown rounded-lg"></div>
+          <div className="h-[30rem] w-[30rem] bg-allium-dark-brown rounded-lg flex items-center justify-center">
+            <GarlicModelClient />
+          </div>
         </div>
       </div>
     </div>

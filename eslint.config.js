@@ -84,6 +84,12 @@ export default [
       ],
       'no-useless-escape': 'off',
       'no-case-declarations': 'off',
+      'react/no-unknown-property': [
+        'error',
+        {
+          ignore: ['intensity', 'position', 'args', 'roughness', 'metalness'],
+        },
+      ],
     },
   },
   ...fixupConfigRules(
