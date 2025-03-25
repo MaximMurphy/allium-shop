@@ -8,15 +8,30 @@
   --color-light: #fff;
 }
 
+/* Font setup for Mulish variable font */
+@font-face {
+  font-family: 'Mulish';
+  src: url('../assets/fonts/Mulish-VariableFont_wght.ttf')
+    format('truetype-variations');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url('../assets/fonts/Mulish-Italic-VariableFont_wght.ttf')
+    format('truetype-variations');
+  font-weight: 200 1000;
+  font-style: italic;
+  font-display: swap;
+}
+
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: 'Mulish', sans-serif;
-}
-
-.font-mulish {
-  font-family: 'Mulish', sans-serif;
+  font-family: 'Mulish';
 }
 
 img {

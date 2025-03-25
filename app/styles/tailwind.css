@@ -12,6 +12,7 @@
 }
 
 @theme {
+  --font-family-mulish: 'Mulish', ui-sans-serif, system-ui, sans-serif;
   --color-allium-cream: #fefbef;
   --color-allium-green: #365314;
   --color-allium-light-green: #3f6212;
