@@ -13,18 +13,33 @@ export function Footer({
   header,
   publicStoreDomain,
 }: FooterProps) {
+  const currentYear = new Date().getFullYear();
+
   return (
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
+          <footer className="h-full md:min-h-screen flex flex-col justify-between bg-allium-green text-allium-cream">
+            <div className="hidden md:flex">
+              <DesktopNav currentYear={currentYear} />
+            </div>
+            <div className="md:hidden">
+              <MobileNav currentYear={currentYear} />
+            </div>
+            <section className="flex flex-col justify-between">
+              <img
+                src="app/assets/footer-logos.png"
+                alt="Allium Shop Logos"
+                className="w-full h-auto"
               />
-            )}
+
+              <div className="flex h-8">
+                <div className="flex-1 bg-allium-brown"></div>
+                <div className="flex-1 bg-allium-dark-green"></div>
+                <div className="flex-1 bg-allium-dark-brown"></div>
+                <div className="flex-1 bg-allium-light-green"></div>
+              </div>
+            </section>
           </footer>
         )}
       </Await>
@@ -32,98 +47,116 @@ export function Footer({
   );
 }
 
-function FooterMenu({
-  menu,
-  primaryDomainUrl,
-  publicStoreDomain,
-}: {
-  menu: FooterQuery['menu'];
-  primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
-  publicStoreDomain: string;
-}) {
+const DesktopNav = ({currentYear}: {currentYear: number}) => {
   return (
-    <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
-        if (!item.url) return null;
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        const isExternal = !url.startsWith('/');
-        return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
-            {item.title}
-          </a>
-        ) : (
-          <NavLink
-            end
-            key={item.id}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
+    <section className="w-full h-full flex flex-col justify-between items-center py-12 px-8 md:px-24 lg:px-36 text-lg md:text-xl lg:text-2xl gap-36">
+      <div className="w-full flex flex-col justify-between gap-24">
+        <nav className="w-full flex justify-between" role="navigation">
+          <NavLink to="/" prefetch="intent" className="hover:underline">
+            Home
           </NavLink>
-        );
-      })}
-    </nav>
+          <NavLink to="/shop" prefetch="intent" className="hover:underline">
+            Shop
+          </NavLink>
+          <NavLink to="/about" prefetch="intent" className="hover:underline">
+            About
+          </NavLink>
+          <NavLink
+            to="https://www.etsy.com/shop/AlliumApparel"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            Etsy
+          </NavLink>
+          <NavLink to="/contact" prefetch="intent" className="hover:underline">
+            Contact Us
+          </NavLink>
+        </nav>
+        <nav className="w-full flex justify-between" role="navigation">
+          <NavLink to="/faq" prefetch="intent" className="hover:underline">
+            FAQ
+          </NavLink>
+          <NavLink to="/shipping" prefetch="intent" className="hover:underline">
+            Shipping
+          </NavLink>
+          <NavLink to="/returns" prefetch="intent" className="hover:underline">
+            Returns
+          </NavLink>
+          <NavLink
+            to="/privacy-policy"
+            prefetch="intent"
+            className="hover:underline"
+          >
+            Privacy Policy
+          </NavLink>
+          <NavLink to="/terms" prefetch="intent" className="hover:underline">
+            Terms & Conditions
+          </NavLink>
+        </nav>
+      </div>
+      <div className="w-full flex flex-col md:flex-row justify-between text-center text-base">
+        <p className="my-2">Website by Luminance</p>
+        <p className="my-2">© {currentYear} Allium. All rights reserved.</p>
+      </div>
+    </section>
   );
-}
-
-const FALLBACK_FOOTER_MENU = {
-  id: 'gid://shopify/Menu/199655620664',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/461633060920',
-      resourceId: 'gid://shopify/ShopPolicy/23358046264',
-      tags: [],
-      title: 'Privacy Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/privacy-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633093688',
-      resourceId: 'gid://shopify/ShopPolicy/23358013496',
-      tags: [],
-      title: 'Refund Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/refund-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633126456',
-      resourceId: 'gid://shopify/ShopPolicy/23358111800',
-      tags: [],
-      title: 'Shipping Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/shipping-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633159224',
-      resourceId: 'gid://shopify/ShopPolicy/23358079032',
-      tags: [],
-      title: 'Terms of Service',
-      type: 'SHOP_POLICY',
-      url: '/policies/terms-of-service',
-      items: [],
-    },
-  ],
 };
 
-function activeLinkStyle({
-  isActive,
-  isPending,
-}: {
-  isActive: boolean;
-  isPending: boolean;
-}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
-  };
-}
+const MobileNav = ({currentYear}: {currentYear: number}) => {
+  return (
+    <section className="w-full h-full flex flex-col justify-between items-center py-12 px-8 md:px-24 lg:px-36 text-sm gap-20">
+      <div className="w-full flex flex-col justify-between gap-12">
+        <nav className="w-full flex justify-between" role="navigation">
+          <NavLink to="/" prefetch="intent" className="hover:underline">
+            Home
+          </NavLink>
+          <NavLink to="/shop" prefetch="intent" className="hover:underline">
+            Shop
+          </NavLink>
+          <NavLink to="/about" prefetch="intent" className="hover:underline">
+            About
+          </NavLink>
+          <NavLink
+            to="https://www.etsy.com/shop/AlliumApparel"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            Etsy
+          </NavLink>
+        </nav>
+        <nav className="w-full flex justify-between" role="navigation">
+          <NavLink to="/contact" prefetch="intent" className="hover:underline">
+            Contact Us
+          </NavLink>
+          <NavLink to="/faq" prefetch="intent" className="hover:underline">
+            FAQ
+          </NavLink>
+          <NavLink to="/shipping" prefetch="intent" className="hover:underline">
+            Shipping
+          </NavLink>
+          <NavLink to="/returns" prefetch="intent" className="hover:underline">
+            Returns
+          </NavLink>
+        </nav>
+        <nav className="w-full flex justify-between" role="navigation">
+          <NavLink
+            to="/privacy-policy"
+            prefetch="intent"
+            className="hover:underline"
+          >
+            Privacy Policy
+          </NavLink>
+          <NavLink to="/terms" prefetch="intent" className="hover:underline">
+            Terms & Conditions
+          </NavLink>
+        </nav>
+      </div>
+      <div className="w-full flex justify-between text-center text-xs">
+        <p className="my-2">Website by Luminance</p>
+        <p className="my-2">© {currentYear} Allium. All rights reserved.</p>
+      </div>
+    </section>
+  );
+};

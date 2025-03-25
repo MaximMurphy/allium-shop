@@ -22,7 +22,7 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
 
   return (
     <header className="bg-allium-green text-allium-cream py-2">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-8">
+      <div className="flex justify-between items-center px-8 md:px-24 lg:px-36">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8 items-center">
           <NavLink
