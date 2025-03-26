@@ -15,6 +15,8 @@ function GarlicModel(props) {
     // Starting rotation to avoid visible jumps
     rotationY: 0,
     rotationX: 0,
+    // Add Z rotation for additional twisting
+    rotationZ: 0,
   });
 
   // Use consistent path for the GLB file
@@ -37,20 +39,27 @@ function GarlicModel(props) {
 
       // Calculate side-to-side wobble (horizontal rotation around Y axis)
       // Increased wobble amount for more intensity
-      const horizontalWobbleAmount = 0.35;
+      const horizontalWobbleAmount = 0.5; // Increased from 0.35 for more twist
       rotationRef.current.rotationY =
         Math.sin(progress) * horizontalWobbleAmount;
 
       // Calculate up-and-down wobble (vertical rotation around X axis)
-      // Increased wobble amount for more intensity
-      const verticalWobbleAmount = 0.12;
-      // Slightly different frequency for natural movement
+      // Modified to allow tilting both forward and backward
+      const verticalWobbleAmount = 0.2; // Increased from 0.12 for more intensity
+      // Offset the sine wave to make it tilt both forward and backward
+      // Instead of oscillating around 0, it will oscillate around -0.05
       rotationRef.current.rotationX =
-        Math.sin(progress * 0.9) * verticalWobbleAmount;
+        Math.sin(progress * 0.9) * verticalWobbleAmount - 0.05;
+
+      // Add Z-axis rotation (twisting) for more dynamic movement
+      const twistAmount = 0.15;
+      // Using a different frequency for more natural combined movement
+      rotationRef.current.rotationZ = Math.sin(progress * 1.2) * twistAmount;
 
       // Apply the calculated rotations
       groupRef.current.rotation.y = rotationRef.current.rotationY;
       groupRef.current.rotation.x = rotationRef.current.rotationX;
+      groupRef.current.rotation.z = rotationRef.current.rotationZ;
     }
   });
 

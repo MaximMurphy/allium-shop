@@ -20,14 +20,14 @@ export function Footer({
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="z-20 h-full md:min-h-screen flex flex-col justify-between bg-allium-green text-allium-cream">
+          <footer className="z-20 h-full md:min-h-screen flex flex-col justify-between bg-allium-green text-allium-cream border-t-2 border-allium-dark-green">
             <div className="hidden md:flex">
               <DesktopNav currentYear={currentYear} />
             </div>
             <div className="md:hidden">
               <MobileNav currentYear={currentYear} />
             </div>
-            <section className="flex flex-col justify-between">
+            <section className="flex flex-col justify-between border-t-2 border-allium-dark-green">
               <img
                 src="app/assets/footer-logos.png"
                 alt="Allium Shop Logos"

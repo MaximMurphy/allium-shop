@@ -22,50 +22,41 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
   const {open} = useAside();
 
   return (
-    <header className="sticky top-0 z-10 bg-allium-green text-allium-cream py-2 font-base">
+    <header className="sticky top-0 z-10 text-allium-cream bg-allium-green py-2 font-medium border-b-2 border-allium-dark-green">
       <Container>
         <div className="flex justify-between items-center">
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-8 items-center">
+          <div className="w-1/3 hidden md:flex gap-4 md:gap-8 items-center">
             <NavLink
               prefetch="intent"
               to="/"
-              className="text-allium-cream hover:underline transition-all duration-300"
+              className="hover:underline transition-all duration-300"
             >
               Shop
             </NavLink>
             <NavLink
               prefetch="intent"
               to="/collections"
-              className="text-allium-cream hover:underline transition duration-300"
+              className="hover:underline transition duration-300"
             >
               Collections
             </NavLink>
-          </nav>
+          </div>
 
-          <NavLink
-            prefetch="intent"
-            to="/"
-            className="flex justify-center md:flex-1"
-          >
-            <img src={headerLogo} alt={shop.name} className="h-12" />
-          </NavLink>
-
-          <div className="flex gap-4 md:gap-8 items-center">
+          <div className="w-1/2 md:w-1/3 flex justify-start md:justify-center">
             <NavLink
               prefetch="intent"
-              to="/account"
-              className="hidden md:block text-allium-cream hover:underline transition duration-300"
+              to="/"
+              className="flex justify-center md:flex-1"
             >
-              <Suspense fallback="Account">
-                <Await resolve={isLoggedIn} errorElement="Account">
-                  {(isLoggedIn) => 'Account'}
-                </Await>
-              </Suspense>
+              <img src={headerLogo} alt={shop.name} className="h-12" />
             </NavLink>
+          </div>
+
+          <div className="w-1/2 md:w-1/3 flex gap-4 md:gap-8 items-center justify-end">
             <CartToggle cart={cart} />
             <button
-              className="md:hidden text-allium-cream hover:underline hover:cursor-pointer transition duration-300"
+              className="md:hidden hover:underline hover:cursor-pointer transition duration-300"
               onClick={() => open('mobile')}
             >
               ☰
@@ -79,34 +70,27 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
 
 export function HeaderMenu() {
   return (
-    <nav className="flex flex-col gap-4">
+    <nav className="flex flex-col gap-8 text-allium-dark-green text-3xl">
       <NavLink
         prefetch="intent"
         to="/"
-        className="text-allium-green hover:underline transition duration-300"
+        className="hover:underline transition duration-300"
       >
         Home
       </NavLink>
       <NavLink
         prefetch="intent"
         to="/"
-        className="text-allium-green hover:underline transition duration-300"
+        className="hover:underline transition duration-300"
       >
         Shop
       </NavLink>
       <NavLink
         prefetch="intent"
         to="/collections"
-        className="text-allium-green hover:underline transition duration-300"
+        className="hover:underline transition duration-300"
       >
         Collections
-      </NavLink>
-      <NavLink
-        prefetch="intent"
-        to="/account"
-        className="text-allium-green hover:underline transition duration-300"
-      >
-        Account
       </NavLink>
     </nav>
   );
