@@ -15,6 +15,12 @@ const items = [
   '🧅',
   '🧄',
   '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
 ];
 
 export default function GarlicMarquee() {
@@ -51,7 +57,7 @@ export default function GarlicMarquee() {
     >
       {items.map((item, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <span key={index} className="mx-4 text-4xl">
+        <span key={index} className="mx-4 text-2xl md:text-4xl">
           {item}
         </span>
       ))}

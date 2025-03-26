@@ -20,14 +20,14 @@ export function Footer({
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="z-20 h-full md:min-h-screen flex flex-col justify-between bg-allium-green text-allium-cream border-t-2 border-allium-dark-green">
+          <footer className="z-20 h-full md:h-screen flex flex-col justify-between bg-allium-dark-green text-allium-cream">
             <div className="hidden md:flex">
               <DesktopNav currentYear={currentYear} />
             </div>
             <div className="md:hidden">
               <MobileNav currentYear={currentYear} />
             </div>
-            <section className="flex flex-col justify-between border-t-2 border-allium-dark-green">
+            <section className="flex flex-col justify-between">
               <img
                 src="app/assets/footer-logos.png"
                 alt="Allium Shop Logos"
@@ -50,7 +50,7 @@ export function Footer({
 
 const DesktopNav = ({currentYear}: {currentYear: number}) => {
   return (
-    <section className="w-full h-full flex flex-col justify-between items-center py-12 text-lg md:text-xl lg:text-2xl gap-36">
+    <section className="w-full h-full flex flex-col justify-between items-center pt-16 pb-12 text-lg md:text-xl lg:text-2xl gap-36">
       <Container className="flex flex-col justify-between gap-24">
         <div className="w-full flex flex-col justify-between gap-24">
           <nav className="w-full flex justify-between" role="navigation">
@@ -181,9 +181,9 @@ const MobileNav = ({currentYear}: {currentYear: number}) => {
             </NavLink>
           </nav>
         </div>
-        <div className="w-full flex justify-between text-center text-xs">
+        <div className="w-full flex justify-between text-xs">
           <p className="my-2">Website by Luminance</p>
-          <p className="my-2">© {currentYear} Allium. All rights reserved.</p>
+          <p className="my-2">© {currentYear} Allium</p>
         </div>
       </Container>
     </section>
