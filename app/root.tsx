@@ -17,7 +17,7 @@ import appStyles from '~/styles/app.css?url';
 import tailwindCss from './styles/tailwind.css?url';
 import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
-
+import LenisProvider from '~/components/LenisProvider';
 export type RootLoader = typeof loader;
 
 /**
@@ -164,7 +164,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
             shop={data.shop}
             consent={data.consent}
           >
-            <PageLayout {...data}>{children}</PageLayout>
+            <LenisProvider>
+              <PageLayout {...data}>{children}</PageLayout>
+            </LenisProvider>
           </Analytics.Provider>
         ) : (
           children

@@ -12,7 +12,7 @@ export default function Homepage() {
   return (
     <div className="w-full h-full lg:h-[calc(100vh-4rem)] bg-allium-cream flex items-center py-12 lg:py-0">
       <div className="w-full h-full flex flex-col lg:flex-row items-center lg:items-start justify-between lg:mt-48">
-        <div className="w-full lg:w-1/2 space-y-12">
+        <div className="w-full lg:w-1/2 space-y-8">
           <img
             src={helloChef}
             alt="Allium Chef"
@@ -25,7 +25,7 @@ export default function Homepage() {
             onion. Wear your culinary passion with our unique, chef-inspired
             designs.
           </p>
-          <div className="w-full space-y-8">
+          <div className="w-full space-y-6">
             <div className="w-full flex justify-between items-center text-lg md:text-xl lg:text-2xl">
               <Link
                 to="/collections"
