@@ -107,12 +107,14 @@ export default function GarlicModelClient() {
   }, []);
 
   return (
-    <div className="h-full w-full bg-transparent rounded-lg">
+    <div className="h-64 md:h-96 w-64 md:w-96">
       {isClient ? (
         <GarlicCanvas />
       ) : (
         <div className="h-full w-full flex items-center justify-center">
-          <div className="text-allium-cream text-2xl">Loading 3D Model...</div>
+          <div className="text-allium-dark-green text-2xl">
+            Loading 3D Model...
+          </div>
         </div>
       )}
     </div>
