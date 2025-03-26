@@ -13,21 +13,30 @@ export const meta: MetaFunction = () => {
 export default function Homepage() {
   return (
     <div className="w-full h-full md:h-[calc(100vh-4rem)] bg-allium-cream flex flex-col items-center justify-between">
-      <div className="w-full mb-8">
+      <div className="w-full">
         <FullWidthImage src={alliumText} alt="Allium" />
       </div>
-      <section className="h-full w-full flex flex-col justify-between py-12">
-        <p className="w-full text-2xl md:text-4xl text-allium-green italic text-justify">
-          At Allium, our brand is a testament to our deep-rooted passion for all
-          things food. We recognize the essential role of Alliums, like Garlic
-          and Onions, in the culinary realm and aim to celebrate them through
-          our company.
-        </p>
+      <section className="h-full w-full flex flex-col justify-between pt-12 pb-24">
+        <div className="w-full flex flex-col md:flex-row gap-8">
+          <div className="w-full md:w-1/2"></div>
+          <div className="w-full md:w-1/2 flex">
+            <p className="h-full text-2xl md:text-5xl text-allium-green italic text-right">
+              Browse our collection of culinary inspired designs. Perfect for
+              any chef, home cook, or food lover.
+            </p>
+          </div>
+        </div>
+
         <div className="w-full flex flex-col items-center justify-center gap-6 md:gap-8">
-          <TextSection />
           <ButtonSection />
         </div>
       </section>
+      <div className="z-20 w-screen flex h-8">
+        <div className="w-1/4 bg-allium-brown"></div>
+        <div className="w-1/4 bg-allium-dark-green"></div>
+        <div className="w-1/4 bg-allium-dark-brown"></div>
+        <div className="w-1/4 bg-allium-light-green"></div>
+      </div>
     </div>
   );
 }

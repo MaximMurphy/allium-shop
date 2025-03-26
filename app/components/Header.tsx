@@ -22,7 +22,7 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
   const {open} = useAside();
 
   return (
-    <header className="sticky top-0 z-10 text-allium-cream bg-allium-green py-2 font-medium border-b-2 border-allium-dark-green">
+    <header className="sticky top-0 z-10 text-allium-cream bg-allium-green py-2 font-medium">
       <Container>
         <div className="flex justify-between items-center">
           {/* Desktop Navigation */}
