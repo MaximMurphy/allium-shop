@@ -22,9 +22,12 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
   const {open} = useAside();
 
   return (
-    <header className="sticky top-0 z-10 text-allium-cream bg-allium-green py-2 font-medium">
+    <header className="sticky top-0 z-10 text-allium-cream py-2 font-medium">
+      <div className="w-full flex absolute top-0 h-full">
+        <div className="w-full bg-allium-green"></div>
+      </div>
       <Container>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center relative z-10">
           {/* Desktop Navigation */}
           <div className="w-1/3 hidden md:flex gap-4 md:gap-8 items-center">
             <NavLink

@@ -35,7 +35,7 @@ export default function Homepage() {
         <div className="w-1/4 bg-allium-brown"></div>
         <div className="w-1/4 bg-allium-dark-green"></div>
         <div className="w-1/4 bg-allium-dark-brown"></div>
-        <div className="w-1/4 bg-allium-light-green"></div>
+        <div className="w-1/4 bg-allium-green"></div>
       </div>
     </div>
   );
