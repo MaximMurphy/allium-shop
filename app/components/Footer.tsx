@@ -110,7 +110,17 @@ const DesktopNav = ({currentYear}: {currentYear: number}) => {
           </nav>
         </div>
         <div className="w-full flex flex-col md:flex-row justify-between text-center text-base">
-          <p className="my-2">Website by Luminance</p>
+          <p className="my-2">
+            Website by{' '}
+            <NavLink
+              to="https://www.luminance.one/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              Luminance
+            </NavLink>
+          </p>
           <p className="my-2">© {currentYear} Allium. All rights reserved.</p>
         </div>
       </Container>
