@@ -21,6 +21,10 @@ const items = [
   '🧅',
   '🧄',
   '🧅',
+  '🧄',
+  '🧅',
+  '🧄',
+  '🧅',
 ];
 
 export default function GarlicMarquee() {
