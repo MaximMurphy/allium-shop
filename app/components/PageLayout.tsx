@@ -1,4 +1,4 @@
-import {Await, Link} from '@remix-run/react';
+import {Await, Link, useLocation} from '@remix-run/react';
 import {Suspense, useId} from 'react';
 import type {
   CartApiQueryFragment,
@@ -8,6 +8,7 @@ import type {
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
+import {ScrollHeader} from '~/components/ScrollHeader';
 import {CartMain} from '~/components/CartMain';
 import {Container} from '~/components/Container';
 import {
@@ -33,17 +34,29 @@ export function PageLayout({
   isLoggedIn,
   publicStoreDomain,
 }: PageLayoutProps) {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
     <Aside.Provider>
       <div className="font-mulish flex min-h-screen flex-col">
-        <Header
-          header={header}
-          cart={cart}
-          isLoggedIn={isLoggedIn}
-          publicStoreDomain={publicStoreDomain}
-        />
+        {isHomePage ? (
+          <ScrollHeader
+            header={header}
+            cart={cart}
+            isLoggedIn={isLoggedIn}
+            publicStoreDomain={publicStoreDomain}
+          />
+        ) : (
+          <Header
+            header={header}
+            cart={cart}
+            isLoggedIn={isLoggedIn}
+            publicStoreDomain={publicStoreDomain}
+          />
+        )}
         <main className="flex-1" id="mainContent" role="main">
-          <Container>{children}</Container>
+          {isHomePage ? children : <Container>{children}</Container>}
         </main>
         <Suspense>
           <Await resolve={footer}>

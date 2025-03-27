@@ -12,32 +12,38 @@ export const meta: MetaFunction = () => {
 
 export default function Homepage() {
   return (
-    <div className="w-full h-full md:h-[calc(100vh-4rem)] bg-allium-cream flex flex-col items-center justify-between">
-      <div className="w-full">
-        <FullWidthImage src={alliumText} alt="Allium" />
-      </div>
-      <section className="h-full w-full flex flex-col justify-between pt-12 pb-24">
-        <div className="w-full flex flex-col md:flex-row gap-8">
-          <div className="w-full md:w-1/2"></div>
-          <div className="w-full md:w-1/2 flex">
-            <p className="h-full text-2xl md:text-5xl text-allium-green italic text-right">
-              Browse our collection of culinary inspired designs. Perfect for
-              any chef, home cook, or food lover.
-            </p>
+    <>
+      {/* Landing Section - Takes up full viewport height */}
+      <div className="w-full h-screen bg-allium-cream flex flex-col items-center justify-between">
+        <div className="w-full">
+          <FullWidthImage src={alliumText} alt="Allium" />
+        </div>
+        <section className="h-full w-full flex flex-col justify-between pt-12 pb-24">
+          <div className="w-full flex flex-col md:flex-row gap-8 max-w-7xl mx-auto px-8">
+            <div className="w-full md:w-1/2"></div>
+            <div className="w-full md:w-1/2 flex">
+              <p className="h-full text-2xl md:text-5xl text-allium-green italic text-right">
+                Browse our collection of culinary inspired designs. Perfect for
+                any chef, home cook, or food lover.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="w-full flex flex-col items-center justify-center gap-6 md:gap-8">
-          <ButtonSection />
+          <div className="w-full flex flex-col items-center justify-center gap-6 md:gap-8">
+            <ButtonSection />
+          </div>
+        </section>
+        <div className="z-10 w-screen flex h-8">
+          <div className="w-1/4 bg-allium-brown"></div>
+          <div className="w-1/4 bg-allium-dark-green"></div>
+          <div className="w-1/4 bg-allium-dark-brown"></div>
+          <div className="w-1/4 bg-allium-green"></div>
         </div>
-      </section>
-      <div className="z-20 w-screen flex h-8">
-        <div className="w-1/4 bg-allium-brown"></div>
-        <div className="w-1/4 bg-allium-dark-green"></div>
-        <div className="w-1/4 bg-allium-dark-brown"></div>
-        <div className="w-1/4 bg-allium-green"></div>
       </div>
-    </div>
+
+      {/* Additional content  after landing - will reveal header when scrolled to */}
+      <FeaturedProductsSection />
+    </>
   );
 }
 
@@ -94,6 +100,35 @@ const Garlic3DModel = () => {
   return (
     <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
       <GarlicModelClient />
+    </div>
+  );
+};
+
+const FeaturedProductsSection = () => {
+  return (
+    <div className="w-full py-20 bg-allium-light-green">
+      <div className="max-w-7xl mx-auto px-8">
+        <h2 className="text-4xl md:text-6xl text-allium-dark-green font-medium mb-12">
+          Featured Products
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Sample product cards */}
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-allium-cream p-8 rounded-lg shadow-md">
+              <div className="aspect-square bg-allium-light-green mb-4"></div>
+              <h3 className="text-2xl text-allium-dark-green mb-2">
+                Product {i}
+              </h3>
+              <p className="text-allium-green mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+              <p className="text-xl font-medium text-allium-dark-green">
+                $29.99
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -20,7 +20,7 @@ export function Footer({
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="z-20 h-full md:h-screen flex flex-col justify-between bg-allium-dark-green text-allium-cream">
+          <footer className="z-30 h-full md:h-screen flex flex-col justify-between bg-allium-dark-green text-allium-cream">
             <div className="hidden md:flex">
               <DesktopNav currentYear={currentYear} />
             </div>
