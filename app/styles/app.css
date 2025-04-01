@@ -51,6 +51,7 @@ body {
 aside {
   background: var(--color-allium-cream);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  color: var(--color-allium-dark-green);
   height: 100vh;
   max-width: var(--aside-width);
   min-width: var(--aside-width);
@@ -62,7 +63,7 @@ aside {
 
 aside header {
   align-items: center;
-  border-bottom: 1px solid var(--color-allium-dark-green);
+  border-bottom: 2px solid var(--color-allium-dark-green);
   display: flex;
   height: var(--header-height);
   justify-content: space-between;
