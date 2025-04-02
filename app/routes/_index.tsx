@@ -15,23 +15,23 @@ export default function Homepage() {
   return (
     <>
       {/* Landing Section - Takes up full viewport height */}
-      <div className="w-full h-screen bg-allium-cream flex flex-col items-center justify-between">
+      <div className="w-full h-[100dvh] md:h-screen bg-allium-cream flex flex-col items-center justify-between">
         <div className="w-full">
           <FullWidthImage src={alliumText} alt="Allium" />
         </div>
-        <section className="h-full w-full flex flex-col justify-between pt-4 pb-12 md:pb-0 md:pt-0">
-          <div className="w-full flex flex-col lg:flex-row gap-4 md:gap-8 max-w-7xl mx-auto px-8">
+        <section className="h-full w-full flex flex-col justify-between pt-8 pb-16 md:pt-12 md:pb-12">
+          <div className="w-full flex flex-col lg:flex-row items-center gap-4 md:gap-8 max-w-7xl mx-auto px-4">
             <div className="w-full lg:w-1/2 pt-4">
               <LandingVegetables />
             </div>
-            <div className="w-full lg:w-1/2 flex md:pt-20">
-              <p className="h-full text-3xl md:text-5xl text-allium-green italic text-center lg:text-right">
+            <div className="w-full lg:w-1/2 flex">
+              <p className="w-full h-full text-3xl md:text-5xl text-allium-green italic text-center lg:text-right">
                 Browse our collection of culinary inspired designs. Perfect for
                 any chef, home cook, or food lover.
               </p>
             </div>
           </div>
-          <div className="w-full h-full flex flex-col items-center justify-end gap-8 mb-12">
+          <div className="w-full h-full flex flex-col items-center justify-end gap-8">
             <ButtonSection />
             <div className="w-full flex items-center justify-between text-allium-green text-xl max-w-7xl mx-auto px-8">
               <p>*</p>
