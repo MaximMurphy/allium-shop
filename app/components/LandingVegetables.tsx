@@ -12,16 +12,19 @@ export function LandingVegetables() {
         <img
           src={SweetOnion}
           alt="Sweet Onion"
+          draggable={false}
           className="w-32 md:w-40 h-32 md:h-40 object-contain relative"
         />
         <img
           src={RedOnion}
           alt="Red Onion"
+          draggable={false}
           className="w-32 md:w-40 h-32 md:h-40 object-contain relative"
         />
         <img
           src={Garlic}
           alt="Garlic"
+          draggable={false}
           className="w-28 md:w-40 h-28 md:h-40 object-contain relative"
         />
       </div>

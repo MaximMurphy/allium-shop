@@ -31,6 +31,7 @@ export function Footer({
               <img
                 src="app/assets/footer-logos.png"
                 alt="Allium Shop Logos"
+                draggable={false}
                 className="w-full h-auto"
               />
 
