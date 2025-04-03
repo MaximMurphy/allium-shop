@@ -6,6 +6,7 @@ import GarlicModelClient from '~/components/GarlicModelClient';
 import alliumText from '../assets/allium-text.svg';
 import {FullWidthImage} from '~/components/FullWidthImage';
 import {LandingVegetables} from '~/components/LandingVegetables';
+import FeaturedProducts from '~/components/FeaturedProducts';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Allium Shop | Home'}];
@@ -48,7 +49,7 @@ export default function Homepage() {
       </div>
 
       {/* Additional content  after landing - will reveal header when scrolled to */}
-      <FeaturedProductsSection />
+      <FeaturedProducts />
     </>
   );
 }
@@ -106,35 +107,6 @@ const Garlic3DModel = () => {
   return (
     <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
       <GarlicModelClient />
-    </div>
-  );
-};
-
-const FeaturedProductsSection = () => {
-  return (
-    <div className="w-full py-20 bg-allium-light-brown">
-      <div className="max-w-7xl mx-auto px-8">
-        <h2 className="text-4xl md:text-6xl text-allium-dark-green font-medium mb-12">
-          Featured Products
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Sample product cards */}
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-allium-cream p-8 rounded-lg shadow-md">
-              <div className="aspect-square bg-allium-light-green mb-4"></div>
-              <h3 className="text-2xl text-allium-dark-green mb-2">
-                Product {i}
-              </h3>
-              <p className="text-allium-green mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-              <p className="text-xl font-medium text-allium-dark-green">
-                $29.99
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };
