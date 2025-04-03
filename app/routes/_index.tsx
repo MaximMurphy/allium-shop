@@ -20,8 +20,8 @@ export default function Homepage() {
         <div className="w-full">
           <FullWidthImage src={alliumText} alt="Allium" />
         </div>
-        <section className="h-full w-full flex flex-col items-center justify-center md:justify-between pt-8 pb-16 md:pt-16 md:pb-16">
-          <div className="w-full h-full flex flex-col lg:flex-row items-center gap-4 md:gap-8 max-w-7xl mx-auto px-4">
+        <section className="h-full w-full flex flex-col items-center justify-center pt-8 pb-16 md:pt-16 md:pb-16">
+          <div className="w-full h-full flex flex-col lg:flex-row items-center gap-6 md:gap-8 max-w-7xl mx-auto px-4">
             <div className="w-full lg:w-1/2 pt-4">
               <LandingVegetables />
             </div>
@@ -32,15 +32,15 @@ export default function Homepage() {
               </p>
             </div>
           </div>
-          <div className="w-full h-full flex flex-col items-center justify-end gap-8">
+          <div className="w-full h-full flex flex-col items-center justify-end gap-6 md:gap-0 md:pb-8">
             <ButtonSection />
-            <div className="w-full flex items-center justify-between text-allium-green text-xl md:text-2xl max-w-7xl mx-auto px-8">
+            <div className="w-full flex items-center justify-between text-allium-green text-xl md:text-2xl max-w-7xl mx-auto px-8 md:-mt-6">
               <p>*</p>
               <p>*</p>
             </div>
           </div>
         </section>
-        <div className="z-10 w-screen flex h-12">
+        <div className="z-10 w-screen flex h-8 md:h-12">
           <div className="w-1/4 bg-allium-brown"></div>
           <div className="w-1/4 bg-allium-dark-green"></div>
           <div className="w-1/4 bg-allium-dark-brown"></div>
