@@ -40,7 +40,7 @@ export default function Homepage() {
             </div>
           </div>
         </section>
-        <div className="z-10 w-screen flex h-8">
+        <div className="z-10 w-screen flex h-12">
           <div className="w-1/4 bg-allium-brown"></div>
           <div className="w-1/4 bg-allium-dark-green"></div>
           <div className="w-1/4 bg-allium-dark-brown"></div>
