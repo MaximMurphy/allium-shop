@@ -15,39 +15,33 @@ export async function loader({context}: LoaderFunctionArgs) {
 export default function Collections() {
   const {collections} = useLoaderData<typeof loader>();
 
-  if (!collections?.nodes?.length) {
-    return (
-      <div className="collections">
-        <h1>Collections</h1>
-        <p>
-          No collections found. Please check if the collections exist in your
-          Shopify store.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div className="collections">
-      <h1>Collections</h1>
-      <div className="collections-grid">
+    <div className="w-full min-h-[100svh] md:h-screen pt-12 pb-24 md:pt-20 md:pb-0">
+      <h2 className="text-4xl md:text-6xl text-allium-dark-green font-medium mb-8 md:mb-12">
+        Collections
+      </h2>
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {collections.nodes.map((collection: CollectionFragment) => (
           <Link
             key={collection.id}
-            className="collection-item"
+            className="group"
             to={`/collections/${collection.handle}`}
             prefetch="intent"
           >
-            {collection?.image && (
-              <Image
-                alt={collection.image.altText || collection.title}
-                aspectRatio="3/5"
-                data={collection.image}
-                loading="eager"
-                sizes="(min-width: 45em) 400px, 100vw"
-              />
-            )}
-            <h5>{collection.title}</h5>
+            <div className="w-full aspect-5/6 border-2 border-allium-dark-brown overflow-hidden">
+              {collection?.image && (
+                <Image
+                  alt={collection.image.altText || collection.title}
+                  data={collection.image}
+                  loading="eager"
+                  sizes="(min-width: 45em) 400px, 100vw"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              )}
+            </div>
+            <h5 className="text-lg md:text-xl text-allium-dark-green font-medium mt-2 group-hover:text-allium-light-green transition-colors duration-300">
+              {collection.title}
+            </h5>
           </Link>
         ))}
       </div>
