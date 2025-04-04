@@ -9,19 +9,47 @@ import {
 import type {ProductItemFragment} from 'storefrontapi.generated';
 import {useVariantUrl} from '~/lib/variants';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {useState, useMemo} from 'react';
+
+type SortKey = 'default' | 'newest' | 'oldest' | 'price-low' | 'price-high';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [{title: `Allium Shop | ${data?.collection.title ?? ''} Collection`}];
 };
 
-export async function loader(args: LoaderFunctionArgs) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
+export async function loader({context, params, request}: LoaderFunctionArgs) {
+  const {handle} = params;
+  const {storefront} = context;
+  const url = new URL(request.url);
+  const sortKey = (url.searchParams.get('sort') || 'default') as SortKey;
 
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
+  const paginationVariables = getPaginationVariables(request, {
+    pageBy: 8,
+  });
 
-  return {...deferredData, ...criticalData};
+  if (!handle) {
+    throw redirect('/collections');
+  }
+
+  const [{collection}] = await Promise.all([
+    storefront.query(COLLECTION_QUERY, {
+      variables: {
+        handle,
+        ...paginationVariables,
+      },
+    }),
+  ]);
+
+  if (!collection) {
+    throw new Response(`Collection ${handle} not found`, {
+      status: 404,
+    });
+  }
+
+  return {
+    collection,
+    sortKey,
+  };
 }
 
 /**
@@ -71,11 +99,53 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 }
 
 export default function Collection() {
-  const {collection} = useLoaderData<typeof loader>();
+  const {collection, sortKey: initialSortKey} = useLoaderData<typeof loader>();
+  const [currentSort, setCurrentSort] = useState<SortKey>(initialSortKey);
+
+  const sortedProducts = useMemo(() => {
+    const products = [...collection.products.nodes];
+
+    switch (currentSort) {
+      case 'newest':
+        return products.sort((a, b) => {
+          const dateA = new Date(a.publishedAt || 0);
+          const dateB = new Date(b.publishedAt || 0);
+          return dateB.getTime() - dateA.getTime();
+        });
+      case 'oldest':
+        return products.sort((a, b) => {
+          const dateA = new Date(a.publishedAt || 0);
+          const dateB = new Date(b.publishedAt || 0);
+          return dateA.getTime() - dateB.getTime();
+        });
+      case 'price-low':
+        return products.sort((a, b) => {
+          const priceA = parseFloat(a.priceRange.minVariantPrice.amount);
+          const priceB = parseFloat(b.priceRange.minVariantPrice.amount);
+          return priceA - priceB;
+        });
+      case 'price-high':
+        return products.sort((a, b) => {
+          const priceA = parseFloat(a.priceRange.minVariantPrice.amount);
+          const priceB = parseFloat(b.priceRange.minVariantPrice.amount);
+          return priceB - priceA;
+        });
+      default:
+        return products;
+    }
+  }, [collection.products.nodes, currentSort]);
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSort = e.target.value as SortKey;
+    setCurrentSort(newSort);
+    const url = new URL(window.location.href);
+    url.searchParams.set('sort', newSort);
+    window.location.href = url.toString();
+  };
 
   return (
     <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32">
-      <h2 className="text-4xl md:text-5xl lg:text-6xl text-allium-dark-green font-medium mb-8 md:mb-12">
+      <h2 className="text-4xl md:text-5xl lg:text-6xl text-allium-dark-green font-medium mb-2 md:mb-4">
         {collection.title}
       </h2>
       {collection.description && (
@@ -83,18 +153,28 @@ export default function Collection() {
           {collection.description}
         </p>
       )}
-      <PaginatedResourceSection
-        connection={collection.products}
-        resourcesClassName="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
-      >
-        {({node: product, index}) => (
+      <div className="mb-8">
+        <select
+          value={currentSort}
+          onChange={handleSortChange}
+          className="px-4 py-2 border border-allium-dark-brown rounded-md text-allium-dark-brown bg-white"
+        >
+          <option value="default">Default</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+        </select>
+      </div>
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+        {sortedProducts.map((product, index) => (
           <ProductItem
             key={product.id}
             product={product}
             loading={index < 8 ? 'eager' : undefined}
           />
-        )}
-      </PaginatedResourceSection>
+        ))}
+      </div>
       <Analytics.CollectionView
         data={{
           collection: {
@@ -147,6 +227,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    publishedAt
     featuredImage {
       id
       altText
@@ -176,6 +257,7 @@ const COLLECTION_QUERY = `#graphql
     $last: Int
     $startCursor: String
     $endCursor: String
+    $sortKey: ProductCollectionSortKeys
   ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       id
@@ -186,7 +268,8 @@ const COLLECTION_QUERY = `#graphql
         first: $first,
         last: $last,
         before: $startCursor,
-        after: $endCursor
+        after: $endCursor,
+        sortKey: $sortKey
       ) {
         nodes {
           ...ProductItem
