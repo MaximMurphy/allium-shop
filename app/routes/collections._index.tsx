@@ -16,13 +16,22 @@ export async function loader({context}: LoaderFunctionArgs) {
 export default function Collections() {
   const {collections} = useLoaderData<typeof loader>();
 
+  const allProductsCollection = {
+    id: 'all',
+    title: 'All Products',
+    handle: 'all',
+    image: null, // or provide a default image if needed
+  };
+
+  const orderedCollections = [allProductsCollection, ...collections.nodes];
+
   return (
     <div className="w-full min-h-[100svh] md:h-screen pt-12 pb-24 md:pt-20 md:pb-0">
       <h2 className="text-4xl md:text-5xl lg:text-6xl text-allium-dark-green font-medium mb-8 md:mb-12">
         Collections
       </h2>
       <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-        {collections.nodes.map((collection: CollectionFragment) => (
+        {orderedCollections.map((collection: CollectionFragment) => (
           <Link
             key={collection.id}
             className="group"
