@@ -1,4 +1,4 @@
-import {Link} from '@remix-run/react';
+import {Link, useLocation} from '@remix-run/react';
 import type {CollectionFragment} from 'storefrontapi.generated';
 
 export default function CollectionsNav({
@@ -6,32 +6,40 @@ export default function CollectionsNav({
 }: {
   collections: CollectionFragment[];
 }) {
+  const location = useLocation();
+
   return (
     <div className="w-full grid grid-cols-2 md:grid-cols-4 items-center text-center mb-8 md:mb-12 text-allium-cream md:text-lg">
       <Link
         to={`/collections/all`}
-        className="bg-allium-brown py-1 hover:font-medium transition-all duration-300"
+        className={`bg-allium-brown py-1 hover:underline transition-all duration-300 ${
+          location.pathname === '/collections/all'
+            ? 'font-medium underline'
+            : ''
+        }`}
       >
         <p>All</p>
       </Link>
-      <Link
-        to={`/collections/${collections[0].handle}`}
-        className="bg-allium-dark-green py-1 hover:font-medium transition-all duration-300"
-      >
-        <p>{collections[0].title}</p>
-      </Link>
-      <Link
-        to={`/collections/${collections[1].handle}`}
-        className="bg-allium-dark-brown py-1 hover:font-medium transition-all duration-300"
-      >
-        <p>{collections[1].title}</p>
-      </Link>
-      <Link
-        to={`/collections/${collections[2].handle}`}
-        className="bg-allium-green py-1 hover:font-medium transition-all duration-300"
-      >
-        <p>{collections[2].title}</p>
-      </Link>
+      {collections.map((collection, index) => (
+        <Link
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          to={`/collections/${collection.handle}`}
+          className={`py-1 hover:underline transition-all duration-300 ${
+            location.pathname === `/collections/${collection.handle}`
+              ? 'font-medium underline'
+              : ''
+          } ${
+            index === 0
+              ? 'bg-allium-dark-green'
+              : index === 1
+              ? 'bg-allium-dark-brown'
+              : 'bg-allium-green'
+          }`}
+        >
+          <p>{collection.title}</p>
+        </Link>
+      ))}
     </div>
   );
 }

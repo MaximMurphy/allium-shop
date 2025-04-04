@@ -32,7 +32,7 @@ export function Header({header, isLoggedIn, cart}: HeaderProps) {
           <div className="w-1/3 hidden md:flex gap-4 md:gap-8 items-center">
             <NavLink
               prefetch="intent"
-              to="/"
+              to="/collections/all"
               className="hover:underline transition-all duration-300"
             >
               Shop
