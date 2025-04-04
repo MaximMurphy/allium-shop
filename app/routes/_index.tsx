@@ -54,6 +54,26 @@ export default function Homepage() {
   );
 }
 
+const ButtonSection = () => {
+  return (
+    <div className="w-full md:w-3xl flex justify-between items-center text-lg md:text-2xl px-8 md:px-0">
+      <Link
+        to="/collections"
+        className="w-fit md:w-80 bg-allium-dark-green text-allium-cream px-2 md:px-8 py-2 md:py-4 rounded-lg border-2 border-allium-dark-green hover:bg-allium-light-green transition duration-300 text-center"
+      >
+        Shop The Collection
+      </Link>
+      <span className="text-4xl">✦</span>
+      <Link
+        to="/about"
+        className="w-fit md:w-80 border-2 border-allium-dark-green text-allium-dark-green px-2 md:px-8 py-2 md:py-4 rounded-lg hover:bg-allium-light-green hover:text-allium-cream transition duration-300 text-center"
+      >
+        About Us
+      </Link>
+    </div>
+  );
+};
+
 const HelloChefSection = () => {
   return (
     <img
@@ -72,26 +92,6 @@ const TextSection = () => {
       Browse our collection of culinary inspired designs. Perfect for any chef,
       home cook, or food lover.
     </p>
-  );
-};
-
-const ButtonSection = () => {
-  return (
-    <div className="w-full md:w-3xl flex justify-between items-center text-lg md:text-2xl px-8 md:px-0">
-      <Link
-        to="/collections"
-        className="w-fit md:w-80 bg-allium-dark-green text-allium-cream px-2 md:px-8 py-2 md:py-4 rounded-lg border-2 border-allium-dark-green hover:bg-allium-light-green transition duration-300 text-center"
-      >
-        Shop The Collection
-      </Link>
-      <span className="text-4xl">✦</span>
-      <Link
-        to="/about"
-        className="w-fit md:w-80 border-2 border-allium-dark-green text-allium-dark-green px-2 md:px-8 py-2 md:py-4 rounded-lg hover:bg-allium-light-green hover:text-allium-cream transition duration-300 text-center"
-      >
-        About Us
-      </Link>
-    </div>
   );
 };
 
