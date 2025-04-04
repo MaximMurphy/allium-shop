@@ -160,6 +160,10 @@ export default function Collection() {
     <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32">
       <CollectionsNav collections={collections} />
       <section className="flex flex-col md:flex-row justify-between md:items-end gap-2 md:gap-0 mb-6 md:mb-8">
+        <div className="flex md:hidden text-lg text-allium-dark-green items-center gap-1">
+          <h2>{collection.title}</h2>
+          <p>[{collection.products.nodes.length}]</p>
+        </div>
         <div className="flex items-center gap-2 md:gap-3">
           <span className="text-lg text-allium-dark-green">Sort By:</span>
           <div className="relative flex justify-between">
@@ -176,7 +180,7 @@ export default function Collection() {
             </select>
           </div>
         </div>
-        <div className="text-lg md:text-2xl text-allium-dark-green flex items-center gap-1 md:gap-2">
+        <div className="hidden md:flex text-2xl text-allium-dark-green items-center gap-2">
           <h2>{collection.title}</h2>
           <p>[{collection.products.nodes.length}]</p>
         </div>
