@@ -2,6 +2,7 @@ import {useLoaderData, Link, type MetaFunction} from '@remix-run/react';
 import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {Image} from '@shopify/hydrogen';
 import type {CollectionFragment} from 'storefrontapi.generated';
+import {COLLECTIONS_QUERY} from '~/lib/queries/collections';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Allium Shop | Collections'}];
@@ -48,25 +49,3 @@ export default function Collections() {
     </div>
   );
 }
-
-const COLLECTIONS_QUERY = `#graphql
-  fragment Collection on Collection {
-    id
-    title
-    handle
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-  }
-  query StoreCollections {
-    collections(first: 4) {
-      nodes {
-        ...Collection
-      }
-    }
-  }
-` as const;
