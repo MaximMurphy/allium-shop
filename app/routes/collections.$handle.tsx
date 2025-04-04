@@ -13,8 +13,9 @@ import {
 } from '@shopify/hydrogen';
 import type {ProductItemFragment} from 'storefrontapi.generated';
 import {useVariantUrl} from '~/lib/variants';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {useState, useMemo} from 'react';
+import CollectionsNav from '~/components/CollectionsNav';
+import {COLLECTIONS_QUERY} from '~/lib/queries/collections';
 
 type SortKey = 'default' | 'newest' | 'oldest' | 'price-low' | 'price-high';
 
@@ -36,13 +37,14 @@ export async function loader({context, params, request}: LoaderFunctionArgs) {
     throw redirect('/collections');
   }
 
-  const [{collection}] = await Promise.all([
+  const [{collection}, {collections}] = await Promise.all([
     storefront.query(COLLECTION_QUERY, {
       variables: {
         handle,
         ...paginationVariables,
       },
     }),
+    storefront.query(COLLECTIONS_QUERY),
   ]);
 
   if (!collection) {
@@ -53,6 +55,7 @@ export async function loader({context, params, request}: LoaderFunctionArgs) {
 
   return {
     collection,
+    collections: collections.nodes,
     sortKey,
   };
 }
@@ -104,7 +107,11 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 }
 
 export default function Collection() {
-  const {collection, sortKey: initialSortKey} = useLoaderData<typeof loader>();
+  const {
+    collection,
+    collections,
+    sortKey: initialSortKey,
+  } = useLoaderData<typeof loader>();
   const [currentSort, setCurrentSort] = useState<SortKey>(initialSortKey);
   const navigate = useNavigate();
 
@@ -151,6 +158,7 @@ export default function Collection() {
 
   return (
     <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32">
+      <CollectionsNav collections={collections} />
       <section className="flex justify-between items-end mb-8">
         <div className="flex items-center gap-3">
           <span className="text-lg text-allium-dark-green">Sort By:</span>
