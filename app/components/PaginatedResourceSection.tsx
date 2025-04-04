@@ -21,8 +21,8 @@ export function PaginatedResourceSection<NodesType>({
         );
 
         return (
-          <div>
-            <PreviousLink>
+          <div className="flex flex-col gap-8">
+            <PreviousLink className="w-fit bg-allium-green border border-allium-green hover:bg-allium-light-green transition-colors duration-300 text-allium-cream px-4 py-2 rounded-md">
               {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
             </PreviousLink>
             {resourcesClassName ? (
@@ -30,8 +30,8 @@ export function PaginatedResourceSection<NodesType>({
             ) : (
               resourcesMarkup
             )}
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
+            <NextLink className="w-fit bg-allium-green border border-allium-green hover:bg-allium-light-green transition-colors duration-300 text-allium-cream px-4 py-2 rounded-md">
+              {isLoading ? 'Loading...' : <span>Load More ↓</span>}
             </NextLink>
           </div>
         );

@@ -74,12 +74,18 @@ export default function Collection() {
   const {collection} = useLoaderData<typeof loader>();
 
   return (
-    <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
+    <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32">
+      <h2 className="text-4xl md:text-5xl lg:text-6xl text-allium-dark-green font-medium mb-8 md:mb-12">
+        {collection.title}
+      </h2>
+      {collection.description && (
+        <p className="text-lg text-allium-dark-brown mb-8 md:mb-12">
+          {collection.description}
+        </p>
+      )}
       <PaginatedResourceSection
         connection={collection.products}
-        resourcesClassName="products-grid"
+        resourcesClassName="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
       >
         {({node: product, index}) => (
           <ProductItem
@@ -110,25 +116,24 @@ function ProductItem({
 }) {
   const variantUrl = useVariantUrl(product.handle);
   return (
-    <Link
-      className="product-item"
-      key={product.id}
-      prefetch="intent"
-      to={variantUrl}
-    >
-      {product.featuredImage && (
-        <Image
-          alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
-          data={product.featuredImage}
-          loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h4>{product.title}</h4>
-      <small>
+    <Link className="group" key={product.id} prefetch="intent" to={variantUrl}>
+      <div className="w-full aspect-5/6 border border-allium-dark-brown overflow-hidden">
+        {product.featuredImage && (
+          <Image
+            alt={product.featuredImage.altText || product.title}
+            data={product.featuredImage}
+            loading={loading}
+            sizes="(min-width: 45em) 400px, 100vw"
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        )}
+      </div>
+      <h5 className="text-lg md:text-xl text-allium-dark-green mt-2 group-hover:text-allium-light-green transition-colors duration-300">
+        {product.title}
+      </h5>
+      <p className="text-base text-allium-dark-brown">
         <Money data={product.priceRange.minVariantPrice} />
-      </small>
+      </p>
     </Link>
   );
 }
