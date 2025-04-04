@@ -9,7 +9,7 @@ export default function FeaturedProducts() {
             Featured
           </h2>
           <Link
-            to="/collections"
+            to="/collections/all"
             className="text-lg md:text-2xl text-allium-dark-green font-medium hover:text-allium-light-green transition-all duration-300 mb-12"
           >
             {`Shop All >>`}

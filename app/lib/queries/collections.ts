@@ -12,7 +12,7 @@ export const COLLECTIONS_QUERY = `#graphql
     }
   }
   query StoreCollections {
-    collections(first: 4) {
+    collections(first: 3) {
       nodes {
         ...Collection
       }

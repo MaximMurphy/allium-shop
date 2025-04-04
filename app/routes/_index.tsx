@@ -58,7 +58,7 @@ const ButtonSection = () => {
   return (
     <div className="w-full md:w-3xl flex justify-between items-center text-lg md:text-2xl px-8 md:px-0">
       <Link
-        to="/collections"
+        to="/collections/all"
         className="w-fit md:w-80 bg-allium-dark-green text-allium-cream px-2 md:px-8 py-2 md:py-4 rounded-lg border-2 border-allium-dark-green hover:bg-allium-light-green transition duration-300 text-center"
       >
         Shop The Collection
