@@ -2,6 +2,7 @@ import {Suspense} from 'react';
 import {Await, NavLink} from '@remix-run/react';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
 import {Container} from '~/components/Container';
+import alliumLogo from '~/assets/footer-logos.png';
 
 interface FooterProps {
   footer: Promise<FooterQuery | null>;
@@ -29,7 +30,7 @@ export function Footer({
             </div>
             <section className="flex flex-col justify-between">
               <img
-                src="app/assets/footer-logos.png"
+                src={alliumLogo}
                 alt="Allium Shop Logos"
                 draggable={false}
                 className="w-full h-auto"
