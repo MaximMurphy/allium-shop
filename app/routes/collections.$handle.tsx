@@ -1,5 +1,10 @@
 import {redirect, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {useLoaderData, Link, type MetaFunction} from '@remix-run/react';
+import {
+  useLoaderData,
+  Link,
+  type MetaFunction,
+  useNavigate,
+} from '@remix-run/react';
 import {
   getPaginationVariables,
   Image,
@@ -101,6 +106,7 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 export default function Collection() {
   const {collection, sortKey: initialSortKey} = useLoaderData<typeof loader>();
   const [currentSort, setCurrentSort] = useState<SortKey>(initialSortKey);
+  const navigate = useNavigate();
 
   const sortedProducts = useMemo(() => {
     const products = [...collection.products.nodes];
@@ -140,32 +146,46 @@ export default function Collection() {
     setCurrentSort(newSort);
     const url = new URL(window.location.href);
     url.searchParams.set('sort', newSort);
-    window.location.href = url.toString();
+    navigate(url.search, {replace: true});
   };
 
   return (
     <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32">
-      <h2 className="text-4xl md:text-5xl lg:text-6xl text-allium-dark-green font-medium mb-2 md:mb-4">
-        {collection.title}
-      </h2>
-      {collection.description && (
-        <p className="text-lg text-allium-dark-brown mb-8 md:mb-12">
-          {collection.description}
-        </p>
-      )}
-      <div className="mb-8">
-        <select
-          value={currentSort}
-          onChange={handleSortChange}
-          className="px-4 py-2 border border-allium-dark-brown rounded-md text-allium-dark-brown bg-white"
-        >
-          <option value="default">Default</option>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="price-low">Price: Low to High</option>
-          <option value="price-high">Price: High to Low</option>
-        </select>
-      </div>
+      <section className="flex justify-between items-end mb-8">
+        <div className="flex items-center gap-3">
+          <span className="text-lg text-allium-dark-green">Sort By:</span>
+          <div className="relative flex justify-between">
+            <select
+              value={currentSort}
+              onChange={handleSortChange}
+              className="appearance-none bg-transparent py-1 text-lg text-allium-dark-green focus:outline-none cursor-pointer"
+            >
+              <option value="default">Featured</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+            <div className="pointer-events-none flex items-center">
+              <svg
+                className="h-4 w-4 text-allium-dark-green"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="text-2xl text-allium-dark-green flex items-center gap-2">
+          <h2>{collection.title}</h2>
+          <p>[{collection.products.nodes.length}]</p>
+        </div>
+      </section>
       <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {sortedProducts.map((product, index) => (
           <ProductItem
