@@ -159,14 +159,14 @@ export default function Collection() {
   return (
     <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32">
       <CollectionsNav collections={collections} />
-      <section className="flex justify-between items-end mb-8">
-        <div className="flex items-center gap-3">
+      <section className="flex flex-col md:flex-row justify-between md:items-end gap-2 md:gap-0 mb-6 md:mb-8">
+        <div className="flex items-center gap-2 md:gap-3">
           <span className="text-lg text-allium-dark-green">Sort By:</span>
           <div className="relative flex justify-between">
             <select
               value={currentSort}
               onChange={handleSortChange}
-              className="appearance-none bg-transparent py-1 text-lg text-allium-dark-green focus:outline-none cursor-pointer"
+              className="w-fit py-1 text-lg text-allium-dark-green border border-allium-green p-2 focus:outline-none rounded-md cursor-pointer"
             >
               <option value="default">Featured</option>
               <option value="newest">Newest</option>
@@ -174,22 +174,9 @@ export default function Collection() {
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
             </select>
-            <div className="pointer-events-none flex items-center">
-              <svg
-                className="h-4 w-4 text-allium-dark-green"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
           </div>
         </div>
-        <div className="text-2xl text-allium-dark-green flex items-center gap-2">
+        <div className="text-lg md:text-2xl text-allium-dark-green flex items-center gap-1 md:gap-2">
           <h2>{collection.title}</h2>
           <p>[{collection.products.nodes.length}]</p>
         </div>
