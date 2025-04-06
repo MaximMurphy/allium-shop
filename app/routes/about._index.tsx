@@ -1,4 +1,5 @@
 import {type MetaFunction} from '@remix-run/react';
+import alliums from '~/assets/alliums.png';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Allium Shop | About Us'}];
@@ -6,9 +7,10 @@ export const meta: MetaFunction = () => {
 
 export default function About() {
   return (
-    <div className="w-full min-h-[100svh] md:h-screen pt-12 pb-24 md:pt-20 md:pb-0 text-allium-dark-brown">
+    <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32 text-allium-dark-brown">
+      <img src={alliums} alt="Allium Logo" className="w-full h-full" />
       <header className="mb-8">
-        <h1 className="text-4xl font-bold">About Allium Shop</h1>
+        <h1 className="text-4xl font-bold">About Allium</h1>
       </header>
       <main className="prose prose-lg max-w-none">
         <div className="grid gap-8 md:grid-cols-2">
@@ -47,7 +49,7 @@ export default function About() {
           <p className="mb-4">
             Our dedicated team works tirelessly to ensure every aspect of your
             shopping experience exceeds expectations. From product selection to
-            customer service, we aare here to help.
+            customer service, we are here to help.
           </p>
         </div>
       </main>
