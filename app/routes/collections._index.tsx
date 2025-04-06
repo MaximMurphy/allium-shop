@@ -26,7 +26,7 @@ export default function Collections() {
   const orderedCollections = [allProductsCollection, ...collections.nodes];
 
   return (
-    <div className="w-full min-h-[100svh] md:h-screen pt-12 pb-24 md:pt-20 md:pb-0 text-allium-dark-green">
+    <div className="w-full min-h-[100svh] md:h-screen pt-12 pb-24 md:pt-20 md:pb-0 text-allium-dark-brown">
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 md:mb-12">
         Collections
       </h2>
@@ -49,7 +49,7 @@ export default function Collections() {
                 />
               )}
             </div>
-            <h5 className="text-lg md:text-xl mt-2 group-hover:text-allium-light-green transition-colors duration-300">
+            <h5 className="text-lg md:text-xl mt-2 group-hover:text-allium-light-brown transition-colors duration-300">
               {collection.title}
             </h5>
           </Link>

@@ -2,15 +2,13 @@ import {Link} from '@remix-run/react';
 
 export default function FeaturedProducts() {
   return (
-    <div className="w-full h-full pt-12 md:pt-20">
+    <div className="w-full h-full pt-12 md:pt-20 text-allium-dark-brown">
       <div className="max-w-7xl mx-auto px-8">
         <div className="w-full flex items-end justify-between">
-          <h2 className="text-4xl md:text-6xl text-allium-dark-green font-medium mb-12">
-            Featured
-          </h2>
+          <h2 className="text-4xl md:text-6xl font-medium mb-12">Featured</h2>
           <Link
             to="/collections/all"
-            className="text-lg md:text-2xl text-allium-dark-green font-medium hover:text-allium-light-green transition-all duration-300 mb-12"
+            className="text-lg md:text-2xl font-medium hover:text-allium-light-green transition-all duration-300 mb-12"
           >
             {`Shop All >>`}
           </Link>

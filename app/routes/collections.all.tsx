@@ -95,20 +95,20 @@ export default function Collection() {
   };
 
   return (
-    <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32">
+    <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32 text-allium-dark-brown">
       <CollectionsNav collections={collections} />
       <section className="flex flex-col md:flex-row justify-between md:items-end gap-2 md:gap-0 mb-6 md:mb-8">
-        <div className="flex md:hidden text-lg text-allium-dark-green items-center gap-1">
+        <div className="flex md:hidden text-lg items-center gap-1">
           <h2>All Products</h2>
           <p>[{products.nodes.length}]</p>
         </div>
         <div className="flex items-center gap-2 md:gap-3">
-          <span className="text-lg text-allium-dark-green">Sort By:</span>
+          <span className="text-lg">Sort By:</span>
           <div className="relative flex justify-between">
             <select
               value={currentSort}
               onChange={handleSortChange}
-              className="w-fit py-1 text-lg text-allium-dark-green border border-allium-green p-2 focus:outline-none rounded-md cursor-pointer"
+              className="w-fit py-1 text-lg border border-allium-brown p-2 focus:outline-none rounded-md cursor-pointer"
             >
               <option value="default">Featured</option>
               <option value="newest">Newest</option>
@@ -118,7 +118,7 @@ export default function Collection() {
             </select>
           </div>
         </div>
-        <div className="hidden md:flex text-2xl text-allium-dark-green items-center gap-2">
+        <div className="hidden md:flex text-2xl items-center gap-2">
           <h2>All Products</h2>
           <p>[{products.nodes.length}]</p>
         </div>
@@ -165,7 +165,7 @@ function ProductItem({
           />
         )}
       </div>
-      <h5 className="text-lg md:text-xl text-allium-dark-green mt-2 group-hover:text-allium-light-green transition-colors duration-300">
+      <h5 className="text-lg md:text-xl mt-2 group-hover:text-allium-light-brown transition-colors duration-300">
         {product.title}
       </h5>
       <p className="text-base text-allium-dark-brown">

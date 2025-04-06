@@ -26,7 +26,7 @@ export default function Homepage() {
               <LandingVegetables />
             </div>
             <div className="w-full lg:w-1/2 flex">
-              <p className="w-full h-full text-3xl md:text-5xl text-allium-green italic text-center lg:text-right">
+              <p className="w-full h-full text-3xl md:text-5xl text-allium-brown italic text-center lg:text-right">
                 Browse our collection of culinary inspired designs. Perfect for
                 any chef, home cook, or food lover.
               </p>

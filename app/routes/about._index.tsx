@@ -6,7 +6,7 @@ export const meta: MetaFunction = () => {
 
 export default function About() {
   return (
-    <div className="w-full min-h-[100svh] md:h-screen pt-12 pb-24 md:pt-20 md:pb-0 text-allium-dark-green">
+    <div className="w-full min-h-[100svh] md:h-screen pt-12 pb-24 md:pt-20 md:pb-0 text-allium-dark-brown">
       <header className="mb-8">
         <h1 className="text-4xl font-bold">About Allium Shop</h1>
       </header>
@@ -15,8 +15,10 @@ export default function About() {
           <div>
             <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
             <p className="mb-4">
-              Welcome to Allium Shop, where we are passionate about bringing you
-              the finest products with a focus on quality and sustainability.
+              At Allium, our brand is a testament to our deep-rooted passion for
+              all things food. We recognize the essential role of Alliums, like
+              Garlic and Onions, in the culinary realm and aim to celebrate them
+              through our company.
             </p>
             <p className="mb-4">
               Founded with a vision to create a shopping experience that
@@ -25,13 +27,18 @@ export default function About() {
             </p>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold mb-4">Our Values</h2>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Quality First: We source only the best products</li>
-              <li>Sustainability: Committed to eco-friendly practices</li>
-              <li>Customer Focus: Your satisfaction is our priority</li>
-              <li>Innovation: Always seeking better ways to serve you</li>
-            </ul>
+            <h2 className="text-2xl font-semibold mb-4">What are Alliums?</h2>
+            <p className="mb-4">
+              This diverse botanical family includes onions, garlic, scallions,
+              shallots, and leeks, all bearing the Latin name Allium, which
+              directly translates to Garlic. As a collection of edible and
+              aromatic plants, Alliums are known for their rich flavors, pungent
+              aromas, and essential role in cuisines worldwide. Beyond flavor,
+              these humble flowering plants offer a treasure trove of health
+              benefits, including cardiovascular protection, anti-cancer
+              properties, and anti-inflammatory effects, thanks to sulfur
+              compounds and polyphenols like quercetin.
+            </p>
           </div>
         </div>
 
