@@ -59,7 +59,11 @@ const DesktopNav = ({currentYear}: {currentYear: number}) => {
             <NavLink to="/" prefetch="intent" className="hover:underline">
               Home
             </NavLink>
-            <NavLink to="/shop" prefetch="intent" className="hover:underline">
+            <NavLink
+              to="/collections/all"
+              prefetch="intent"
+              className="hover:underline"
+            >
               Shop
             </NavLink>
             <NavLink to="/about" prefetch="intent" className="hover:underline">
@@ -74,7 +78,7 @@ const DesktopNav = ({currentYear}: {currentYear: number}) => {
               Etsy
             </NavLink>
             <NavLink
-              to="/contact"
+              to="mailto:alliumkitchen@gmail.com"
               prefetch="intent"
               className="hover:underline"
             >
