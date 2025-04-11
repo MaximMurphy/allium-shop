@@ -16,7 +16,7 @@ import {
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
-import {PageTransitionWrapper} from '~/components/PageTransitionWrapper';
+import {PageTransition} from '~/components/PageTransitionWrapper';
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -56,11 +56,15 @@ export function PageLayout({
             publicStoreDomain={publicStoreDomain}
           />
         )}
-        <PageTransitionWrapper>
-          <main className="flex-1" id="mainContent" role="main">
-            {isHomePage ? children : <Container>{children}</Container>}
-          </main>
-        </PageTransitionWrapper>
+        <main className="flex-1" id="mainContent" role="main">
+          {isHomePage ? (
+            <PageTransition />
+          ) : (
+            <Container>
+              <PageTransition />
+            </Container>
+          )}
+        </main>
         <Suspense>
           <Await resolve={footer}>
             {(footerData) => (

@@ -35,14 +35,20 @@ export default function LenisProvider({children}) {
   useEffect(() => {
     if (!lenisRef.current) return;
 
-    // Only scroll to top on POP (back/forward) or PUSH (new navigation)
-    // but not on REPLACE (which shouldn't change scroll position)
-    if (navigationType === 'POP' || navigationType === 'PUSH') {
-      // Small timeout to ensure the new page is ready
-      setTimeout(() => {
+    // Stop scrolling during page transition
+    lenisRef.current.stop();
+
+    // Resume scrolling after transition
+    const timer = setTimeout(() => {
+      lenisRef.current.start();
+
+      // Only scroll to top on POP (back/forward) or PUSH (new navigation)
+      if (navigationType === 'POP' || navigationType === 'PUSH') {
         lenisRef.current.scrollTo(0, {immediate: true});
-      }, 0);
-    }
+      }
+    }, 300); // Match this with your transition duration
+
+    return () => clearTimeout(timer);
   }, [location.pathname, navigationType]);
 
   return children;
