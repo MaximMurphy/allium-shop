@@ -5,6 +5,13 @@ export function PageTransition() {
   const location = useLocation();
   const outlet = useOutlet();
 
+  // Don't animate transitions between nested collection routes
+  const isCollectionRoute = location.pathname.startsWith('/collections');
+
+  if (isCollectionRoute) {
+    return <>{outlet}</>;
+  }
+
   return (
     <AnimatePresence mode="wait">
       <motion.div

@@ -16,6 +16,7 @@ import {useVariantUrl} from '~/lib/variants';
 import {useState, useMemo} from 'react';
 import CollectionsNav from '~/components/CollectionsNav';
 import {COLLECTIONS_QUERY} from '~/lib/queries/collections';
+import {CollectionTransition} from '~/components/CollectionPageTransition';
 
 type SortKey = 'default' | 'newest' | 'oldest' | 'price-low' | 'price-high';
 
@@ -157,52 +158,54 @@ export default function Collection() {
   };
 
   return (
-    <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32 text-allium-dark-brown">
-      <CollectionsNav collections={collections} />
-      <section className="flex flex-col md:flex-row justify-between md:items-end gap-2 md:gap-0 mb-6 md:mb-8">
-        <div className="flex md:hidden text-lg items-center gap-1">
-          <h2>{collection.title}</h2>
-          <p>[{collection.products.nodes.length}]</p>
-        </div>
-        <div className="flex items-center gap-2 md:gap-3">
-          <span className="text-lg">Sort By:</span>
-          <div className="relative flex justify-between">
-            <select
-              value={currentSort}
-              onChange={handleSortChange}
-              className="w-fit py-1 text-lg border border-allium-brown p-2 focus:outline-none rounded-md cursor-pointer"
-            >
-              <option value="default">Featured</option>
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-            </select>
+    <CollectionTransition>
+      <div className="w-full min-h-[100svh] md:min-h-screen pt-12 pb-24 md:pt-20 md:pb-32 text-allium-dark-brown">
+        <CollectionsNav collections={collections} />
+        <section className="flex flex-col md:flex-row justify-between md:items-end gap-2 md:gap-0 mb-6 md:mb-8">
+          <div className="flex md:hidden text-lg items-center gap-1">
+            <h2>{collection.title}</h2>
+            <p>[{collection.products.nodes.length}]</p>
           </div>
+          <div className="flex items-center gap-2 md:gap-3">
+            <span className="text-lg">Sort By:</span>
+            <div className="relative flex justify-between">
+              <select
+                value={currentSort}
+                onChange={handleSortChange}
+                className="w-fit py-1 text-lg border border-allium-brown p-2 focus:outline-none rounded-md cursor-pointer"
+              >
+                <option value="default">Featured</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+          <div className="hidden md:flex text-2xl items-center gap-2">
+            <h2>{collection.title}</h2>
+            <p>[{collection.products.nodes.length}]</p>
+          </div>
+        </section>
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+          {sortedProducts.map((product, index) => (
+            <ProductItem
+              key={product.id}
+              product={product}
+              loading={index < 8 ? 'eager' : undefined}
+            />
+          ))}
         </div>
-        <div className="hidden md:flex text-2xl items-center gap-2">
-          <h2>{collection.title}</h2>
-          <p>[{collection.products.nodes.length}]</p>
-        </div>
-      </section>
-      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-        {sortedProducts.map((product, index) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        ))}
+        <Analytics.CollectionView
+          data={{
+            collection: {
+              id: collection.id,
+              handle: collection.handle,
+            },
+          }}
+        />
       </div>
-      <Analytics.CollectionView
-        data={{
-          collection: {
-            id: collection.id,
-            handle: collection.handle,
-          },
-        }}
-      />
-    </div>
+    </CollectionTransition>
   );
 }
 
