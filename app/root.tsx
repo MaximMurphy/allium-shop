@@ -18,6 +18,8 @@ import tailwindCss from './styles/tailwind.css?url';
 import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import LenisProvider from '~/components/LenisProvider';
+import {AnimatePresence} from 'framer-motion';
+
 export type RootLoader = typeof loader;
 
 /**
@@ -165,7 +167,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
             consent={data.consent}
           >
             <LenisProvider>
-              <PageLayout {...data}>{children}</PageLayout>
+              <AnimatePresence mode="wait">
+                <PageLayout {...data}>{children}</PageLayout>
+              </AnimatePresence>
             </LenisProvider>
           </Analytics.Provider>
         ) : (
